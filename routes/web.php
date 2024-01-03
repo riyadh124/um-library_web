@@ -36,7 +36,6 @@ Route::get('/login',[AuthController::class,'index'])->name('login')->middleware(
 Route::post('/login',[AuthController::class,'authenticate']);
 Route::post('/logout',[AuthController::class,'logout']);
 
-
 Route::get('/dashboard',[DashboardController::class,'index'])->middleware('auth');
 
 Route::resource('/dashboard/workorder',DashboardWorkorderController::class)->middleware('auth');

@@ -18,17 +18,23 @@ class AuthController extends Controller
     }
 
     public function authenticate(Request $request){
-      
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:5',
         ]);
-
+    
         if (Auth::attempt($credentials)) {
-           $request->session()->regenerate();
-           return redirect()->intended('/dashboard');
+            $user = Auth::user();
+    
+            if ($user->role !== 'Admin') {
+                Auth::logout();
+                return back()->with('loginError','Only Admins are allowed to login!');
+            }
+    
+            $request->session()->regenerate();
+            return redirect()->intended('/dashboard');
         }
-
+    
         return back()->with('loginError','Login failed!');
     }
 
