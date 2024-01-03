@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         Workorder::factory(5)->create();
+         Workorder::factory(10)->create();
+
          Material::create([
             'nama' => "Network Combat",
             'harga' => 150000
@@ -43,9 +44,26 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'Riyadh',
+            'name' => 'Riyadh Asjad Mulyadi',
             'email' => 'riyadh@gmail.com',
         ]);
+
+        User::factory()->create([
+         'name' => 'Agus Ackerman',
+         'email' => 'agus@gmail.com',
+        ]);
+
+        User::factory()->create([
+         'name' => 'Rahmat Kanaeru',
+         'email' => 'rahmat@gmail.com',
+        ]);
+
+        User::factory()->create([
+         'name' => 'Admin',
+         'email' => 'admin@gmail.com',
+         'role' => 'Admin',
+        ]);
+
         // Workorder::create([
         //     'nomor_tiket' => 'TCKT-12345',
         //     'tipe_segmen' => 'Seeder',

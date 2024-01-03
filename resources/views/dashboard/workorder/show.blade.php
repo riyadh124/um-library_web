@@ -10,7 +10,7 @@
                     style="font-size: 15px"></i> Back to all workorders</a>
             {{-- <a href="/dashboard/workorder/{{ $workorder->id }}/edit" class="btn btn-warning"> <i
                     class="bi bi-pencil-fill" style="font-size: 15px"></i> Edit</a> --}}
-            <form action="/dashboard/workorder/{{ $workorder->id }}" method="workorder" class="d-inline">
+            <form action="/dashboard/workorder/{{ $workorder->id }}" method="post" class="d-inline">
                 @method('delete')
                 @csrf
                 <button class="btn btn-danger border-0" onclick="return confirm('Are you sure?')">

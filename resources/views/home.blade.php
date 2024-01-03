@@ -12,7 +12,7 @@
             </div>
             <div class="col-lg-6 col-md-12 p-lg-5 mx-auto my-5">
               <div class="bg-body-tertiary me-md-3 px-3 px-md-5 text-center overflow-hidden">
-                <img src="{{ asset('images/mobile.png') }}" class="bg-body shadow-sm mx-auto" style="width:80%;border-radius: 30px;" alt="" srcset="">
+                <img src="{{ asset('storage/images/mobile.png') }}" class="bg-body shadow-sm mx-auto" style="width:80%;border-radius: 30px;" alt="" srcset="">
                   {{-- <div class="bg-body shadow-sm mx-auto"
                       style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
                   </div> --}}

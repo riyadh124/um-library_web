@@ -18,7 +18,18 @@
                 Workorders
             </a>
           </li>
-        
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2 {{ Request::is('dashboard/material*') ? 'active' : 'text-dark' }}" href="/dashboard/material">
+                <i class="bi bi-box"></i> 
+                Materials
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2 {{ Request::is('dashboard/user*') ? 'active' : 'text-dark' }}" href="/dashboard/user">
+                <i class="bi bi-person"></i> 
+                Users
+            </a>
+          </li>
         </ul>
 
         <hr class="my-3">

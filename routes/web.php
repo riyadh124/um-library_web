@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardMaterialController;
+use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashboardWorkorderController;
 use App\Http\Controllers\WorkorderController;
 use Illuminate\Support\Facades\Route;
@@ -39,5 +41,7 @@ Route::post('/logout',[AuthController::class,'logout']);
 Route::get('/dashboard',[DashboardController::class,'index'])->middleware('auth');
 
 Route::resource('/dashboard/workorder',DashboardWorkorderController::class)->middleware('auth');
+Route::resource('/dashboard/material',DashboardMaterialController::class)->middleware('auth');
+Route::resource('/dashboard/user',DashboardUserController::class)->middleware('auth');
 
 Route::resource('/workorder',WorkorderController::class);

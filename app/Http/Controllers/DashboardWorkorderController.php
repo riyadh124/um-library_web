@@ -79,6 +79,8 @@ class DashboardWorkorderController extends Controller
      */
     public function destroy(Workorder $workorder)
     {
-        //
+        Workorder::destroy($workorder->id);
+
+        return redirect('/dashboard/workorder')->with('success','Workorder has been deleted!');
     }
 }
