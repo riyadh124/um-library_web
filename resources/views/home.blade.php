@@ -6,13 +6,13 @@
     <div class="position-relative overflow-hidden p-3 p-md-5 text-center bg-body-tertiary">
         <div class="row">
             <div class="col-lg-6 col-md-12 p-lg-5 mx-auto my-5">
-                <h1 class="display-3 fw-bold">DALAPA Mobile Apps</h1>
-                <h3 class="fw-normal text-muted mb-3">DALAPA streamlines material reporting for efficient IndiHome mass
-                    disruption repairs.</h3>
+                <h1 class="display-3 fw-bold">Perpustakaan Universitas Mulia</h1>
+                <h3 class="fw-normal text-muted mb-3">Menyediakan Sumber Pengetahuan Berkualitas untuk Mahasiswa dan Akademisi
+                </h3>
             </div>
             <div class="col-lg-6 col-md-12 p-lg-5 mx-auto my-5">
               <div class="bg-body-tertiary me-md-3 px-3 px-md-5 text-center overflow-hidden">
-                <img src="{{ asset('storage/images/mobile.png') }}" class="bg-body shadow-sm mx-auto" style="width:80%;border-radius: 30px;" alt="" srcset="">
+                <img src="{{ asset('storage/images/logo_stikom-1.png') }}" class="bg-body shadow-sm mx-auto" style="width:80%;border-radius: 30px;" alt="" srcset="">
                   {{-- <div class="bg-body shadow-sm mx-auto"
                       style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
                   </div> --}}
@@ -21,7 +21,7 @@
         </div>
     </div>
 </main>
-
+{{-- 
 <footer class="container py-5">
     <div class="row">
         <div class="col-12 col-md">
@@ -74,7 +74,7 @@
             </ul>
         </div>
     </div>
-</footer>
+</footer> --}}
 <script src="/js/bootstrap.bundle.min.js"></script>
 
 @endsection

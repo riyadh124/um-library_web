@@ -1,13 +1,14 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #551212;">
     <div class="container">
-      <a class="navbar-brand" href="/">Rydhdev</a>
+      <img src="{{ asset('storage/images/logo_stikom-1.png') }}" style="height: 30px;margin-right:20px" alt="" srcset="">
+      <a class="navbar-brand" href="/">Perpustakaan UM</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link {{ Request::is('/') ? 'active' : 'text-dark' }}" href="/">DALAPA</a>
+            <a class="nav-link {{ Request::is('/') ? 'active' : 'text-dark' }}" href="/">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link {{ Request::is('about') ? 'active' : 'text-dark' }}" href="/about">About</a>
@@ -37,7 +38,7 @@
           @else
    
           <li class="nav-item">
-            <a class="nav-link {{ Request::is('login') ? 'active' : 'text-dark' }}" href="/login">
+            <a class="nav-link {{ Request::is('login') ? 'active' : '' }}" href="/login">
               <i class="bi bi-box-arrow-in-right"></i>
               Login
             </a>

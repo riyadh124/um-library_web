@@ -17,6 +17,47 @@ class AuthController extends Controller
         ]);
     }
 
+    public function show(Request $request)
+    {
+        // Temukan pengguna berdasarkan ID
+        $user = User::find($request->user_id);
+
+        // Jika pengguna tidak ditemukan, kirim respons 404
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        // Kirim respons dengan data pengguna
+        return response()->json(['user' => $user]);
+    }
+
+    public function update(Request $request)
+    {
+        // Validasi input
+        $validator = Validator::make($request->all(), [
+            'nim' => 'nullable|string|max:255',
+            'ktm' => 'nullable|string|max:255',
+            'no_telepon' => 'nullable|string|max:20',
+        ]);
+
+        // Jika validasi gagal, kirim respons error
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Ambil ID pengguna dari request
+        $userId = $request->user()->id;
+
+        // Temukan pengguna berdasarkan ID
+        $user = User::findOrFail($userId);
+
+        // Perbarui data pengguna
+        $user->update($request->only(['nim', 'ktm', 'no_telepon']));
+
+        // Kirim respons sukses
+        return response()->json(['message' => 'User data updated successfully']);
+    }
+
     public function authenticate(Request $request){
         $credentials = $request->validate([
             'email' => 'required|email',
@@ -99,7 +140,7 @@ class AuthController extends Controller
             $validateUser = Validator::make($request->all(), 
             [
                 'email' => 'required|email',
-                'password' => 'required'
+                'password' => 'required',
             ]);
 
             if($validateUser->fails()){
@@ -110,15 +151,22 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            if(!Auth::attempt($request->only(['email', 'password']))){
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Email & Password does not match with our record.',
-                ], 401);
-            }
-
+            // Cari pengguna berdasarkan email
             $user = User::where('email', $request->email)->first();
 
+            // Periksa apakah pengguna ditemukan dan apakah akunnya sudah dikonfirmasi
+            if(!$user || !Hash::check($request->password, $user->password) || !$user->is_confirmed){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Email & Kata Sandi tidak sesuai dengan catatan kami atau akun Anda belum terverifikasi, silahkan hubungi petugas perpustakaan terlebih dahulu.',
+                ], 401);
+            }
+            
+            if ($request->has("fcm_token")) {    
+                $user->fcm_token = $request->fcm_token;
+                $user->save();
+            }
+    
             return response()->json([
                 'status' => true,
                 'message' => 'User Logged In Successfully',

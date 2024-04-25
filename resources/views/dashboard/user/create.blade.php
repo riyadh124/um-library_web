@@ -31,7 +31,8 @@
             <label for="role" class="form-label">Role</label>
             <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" required>
                 <option value="">Pilih Role</option>
-                <option value="Technician" {{ old('role') === 'Technician' ? 'selected' : '' }}>Technician</option>
+                <option value="Siswa" {{ old('role') === 'Siswa' ? 'selected' : '' }}>Siswa</option>
+                <option value="Dosen" {{ old('role') === 'Dosen' ? 'selected' : '' }}>Dosen</option>
                 <option value="Admin" {{ old('role') === 'Admin' ? 'selected' : '' }}>Admin</option>
             </select>
             @error('role')

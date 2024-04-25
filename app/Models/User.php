@@ -41,7 +41,19 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function workorders(){
-        return $this->hasMany(Workorder::class);
+
+    public function borrows()
+    {
+        return $this->hasMany(Borrow::class);
+    }
+
+    public function returns()
+    {
+        return $this->hasMany(Returns::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
     }
 }

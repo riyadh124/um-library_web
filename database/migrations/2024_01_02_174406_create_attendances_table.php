@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('list_materials', function (Blueprint $table) {
+        Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('workorder_id');
-            $table->foreignId('material_id');
-            $table->integer('count');
-            $table->string('image');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('barcode');
+            $table->dateTime('attendance_date');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('list_materials');
+        Schema::dropIfExists('attendances');
     }
 };

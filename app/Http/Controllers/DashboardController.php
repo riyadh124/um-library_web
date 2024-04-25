@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\Borrow;
+use App\Models\User;
 use App\Models\Workorder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,42 +16,20 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $workorders = Workorder::with('listMaterials.material')->get();
+        // Mengambil total user
+        $totalUsers = User::count();
 
-        $currentDateTime = Carbon::now();
-        $startTime24Hours = $currentDateTime->copy()->subHours(24);
-        $startTimeWeek = $currentDateTime->copy()->subWeek();
-        $startTimeMonth = $currentDateTime->copy()->subMonth();
-        $startTimeYear = $currentDateTime->copy()->subYear();
-        
-        $totalCost24Hours = 0;
-        $totalCostWeek = 0;
-        $totalCostMonth = 0;
-        $totalCostYear = 0;
-        
-        foreach ($workorders as $workorder) {
-            foreach ($workorder->listMaterials as $material) {
-                $materialCreatedAt = Carbon::parse($material->created_at);
-        
-                if ($materialCreatedAt->between($startTime24Hours, $currentDateTime)) {
-                    $totalCost24Hours += $material->count * $material->material->harga;
-                }
-        
-                if ($materialCreatedAt->between($startTimeWeek, $currentDateTime)) {
-                    $totalCostWeek += $material->count * $material->material->harga;
-                }
-        
-                if ($materialCreatedAt->between($startTimeMonth, $currentDateTime)) {
-                    $totalCostMonth += $material->count * $material->material->harga;
-                }
-        
-                if ($materialCreatedAt->between($startTimeYear, $currentDateTime)) {
-                    $totalCostYear += $material->count * $material->material->harga;
-                }
-            }
-        }
-        
-        return view('dashboard.index', compact('totalCost24Hours', 'totalCostWeek', 'totalCostMonth', 'totalCostYear'));
+        // Mengambil total buku
+        $totalBooks = Book::count();
+
+        // Mengambil total borrow yang belum dikembalikan
+        $totalBorrowsNotReturned = Borrow::whereNull('returned_at')->count();
+
+        // Mengambil total borrow yang sudah dikembalikan
+        $totalBorrowsReturned = Borrow::whereNotNull('returned_at')->count();
+
+        // Mengirim data ke view
+        return view('dashboard.index', compact('totalUsers', 'totalBooks', 'totalBorrowsNotReturned', 'totalBorrowsReturned'));
     }
 
 

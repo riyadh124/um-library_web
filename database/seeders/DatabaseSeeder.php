@@ -4,9 +4,12 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Book;
+use App\Models\User;
+use App\Models\Borrow;
 use App\Models\Material;
 use App\Models\Workorder;
-use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,27 +19,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         Workorder::factory(10)->create();
 
-         Material::create([
-            'nama' => "Network Combat",
-            'harga' => 150000
-         ]);
+      Book::factory()->create([
+         'kode_buku' => 'AbCDe',
+         'judul_buku' => 'Buku 1',
+         'pengarang' => 'Avatar Roku',
+         'penerbit' => 'PT. Nickelodeon',
+         'cover' => 'STL099670.jpeg',
+         'tahun_terbit' => '2019',
+         'status' => 'Tersedia',
+     ]);
 
-         Material::create([
-            'nama' => "Kabel Fiber",
-            'harga' => 250000
-         ]);
-
-         Material::create([
-            'nama' => "RJ45",
-            'harga' => 25000
-         ]);
-
-         Material::create([
-            'nama' => "Modem",
-            'harga' => 100000
-         ]);
+     Book::factory()->create([
+      'kode_buku' => 'XyZEg',
+      'judul_buku' => 'Buku 2',
+      'pengarang' => 'Spongebob Squarepants : The Beningging',
+      'penerbit' => 'PT. Nickelodeon',
+      'cover' => '91jCK6VRgJL._SL1500_.jpg',
+      'tahun_terbit' => '2001',
+      'status' => 'Dipinjam',
+  ]);
 
         User::factory()->create([
             'name' => 'Test User',
@@ -49,21 +51,19 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-         'name' => 'Agus Ackerman',
-         'email' => 'agus@gmail.com',
-        ]);
-
-        User::factory()->create([
-         'name' => 'Rahmat Kanaeru',
-         'email' => 'rahmat@gmail.com',
-        ]);
-
-        User::factory()->create([
          'name' => 'Admin',
          'email' => 'admin@gmail.com',
          'role' => 'Admin',
         ]);
 
+        Borrow::create([
+            'user_id' => 1,
+            'book_id' => 1,
+            'borrowed_at' => Carbon::now()->subDays(10), // Contoh tanggal pinjam 10 hari yang lalu
+            'returned_at' => Carbon::now()->subDays(5),  // Contoh tanggal pengembalian 5 hari yang lalu
+            'overdue_fine' => 0, // Biaya keterlambatan
+        ]);
+        
         // Workorder::create([
         //     'nomor_tiket' => 'TCKT-12345',
         //     'tipe_segmen' => 'Seeder',

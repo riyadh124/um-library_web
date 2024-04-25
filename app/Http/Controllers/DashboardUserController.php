@@ -18,6 +18,47 @@ class DashboardUserController extends Controller
            ]);
     }
 
+    public function updateProfilePhoto(Request $request)
+{
+    try {
+        // Validasi permintaan
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Anda dapat menyesuaikan validasi sesuai kebutuhan
+        ]);
+
+        // Dapatkan pengguna yang akan diperbarui
+        $user = User::findOrFail($request->user_id);
+
+        // Simpan foto profil baru
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $avatarName = 'avatar_' . time() . '.' . $avatar->getClientOriginalExtension();
+            $avatar->storeAs('public/avatar', $avatarName); // Simpan foto ke penyimpanan yang diinginkan, misalnya penyimpanan publik
+            $user->avatar = 'storage/avatar/' . $avatarName; // Simpan path foto ke database
+            $user->save();
+
+            // Kirim respons berhasil
+            return response()->json(['message' => 'Profile photo updated successfully', 'user' => $user], 200);
+        } else {
+            // Kirim respons gagal jika foto tidak ditemukan
+            return response()->json(['message' => 'Avatar file not found'], 400);
+        }
+    } catch (\Exception $e) {
+        // Kirim respons gagal jika terjadi kesalahan
+        return response()->json(['message' => 'Failed to update profile photo', 'error' => $e->getMessage()], 500);
+    }
+}
+    
+    public function confirmUser(Request $request, User $user)
+    {
+
+        // Konfirmasi akun pengguna
+        $user->is_confirmed = true;
+        $user->save();
+
+        return redirect('/dashboard/user')->with('success','User has been confirmed!');    
+    }
     /**
      * Show the form for creating a new resource.
      */

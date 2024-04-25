@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('documentation_before_works', function (Blueprint $table) {
+        Schema::create('borrows', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('workorder_id');
-            $table->string('image');
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('book_id')->nullable();
+            $table->timestamp('borrowed_at');
+            $table->timestamp('returned_at')->nullable();
+            $table->decimal('overdue_fine', 8, 2)->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('documentation_before_works');
+        Schema::dropIfExists('borrows');
     }
 };

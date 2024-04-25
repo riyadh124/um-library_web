@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('materials', function (Blueprint $table) {
+        Schema::create('returns', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->integer('harga');
+            $table->foreignId('borrow_id')->constrained()->onDelete('cascade');
+            $table->timestamp('returned_at');
+            $table->decimal('fine_amount', 8, 2)->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('materials');
+        Schema::dropIfExists('returns');
     }
 };

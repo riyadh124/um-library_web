@@ -16,11 +16,7 @@ class Workorder extends Model
     public function user(){
         return $this->belongsTo(User::class,'user_id');
     }
-
-    public function listMaterials(){
-        return $this->hasMany(ListMaterial::class);
-    }
-
+    
     public function documentationBefore(){
         return $this->hasMany(DocumentationBeforeWork::class);
     }
